@@ -1,0 +1,52 @@
+[
+   {
+      "id":0,
+      "name":"Brody Boyer",
+      "office":"San Fransisco, CA"
+   },
+   {
+      "id":1,
+      "name":"Mateo Friesen",
+      "office":"San Fransisco, CA"
+   },
+   {
+      "id":2,
+      "name":"Dwight Altenwerth",
+      "office":"San Fransisco, CA"
+   },
+   {
+      "id":3,
+      "name":"Estrella Tremblay",
+      "office":"San Fransisco, CA"
+   },
+   {
+      "id":4,
+      "name":"Gail Hackett",
+      "office":"Mountain View, CA"
+   },
+   {
+      "id":5,
+      "name":"Leonel Roberts",
+      "office":"Mountain View, CA"
+   },
+   {
+      "id":6,
+      "name":"Erin Schoen",
+      "office":"NYC, NY"
+   },
+   {
+      "id":7,
+      "name":"Margot Morissette",
+      "office":"San Fransisco, CA"
+   },
+   {
+      "id":8,
+      "name":"Mose VonRueden",
+      "office":"San Jose, CA"
+   },
+   {
+      "id":9,
+      "name":"Alanis Lebsack",
+      "office":"San Fransisco, CA"
+   }
+]

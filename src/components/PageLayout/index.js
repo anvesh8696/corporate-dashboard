@@ -42,7 +42,9 @@ export default function (Wrapped){
               onOverlayClick={ this.toggleDrawerActive }>
               <Navigation type='vertical' routes={routes} />
             </NavDrawer>
-            <Wrapped toggleDrawerActive={this.toggleDrawerActive}/>
+            <Wrapped
+              toggleDrawerActive={this.toggleDrawerActive}
+            />
           </Layout>
         );
       }
