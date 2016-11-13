@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
-import Issues from './Issues'
-import { fetchIssues } from './IssuesModule'
+import Explore from './Explore'
+import { fetchOffices } from './ExploreModule'
 
 const mapStateToProps = (state) => {
   return {
-    'issues': state.issues
+    'offices': state.explore.offices
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchIssues: (id) => {
-      dispatch(fetchIssues());
+    fetchOffices: (id) => {
+      dispatch(fetchOffices());
     }
   }
 }
@@ -19,4 +19,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Issues);
+)(Explore);

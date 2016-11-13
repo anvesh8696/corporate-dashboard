@@ -3,18 +3,17 @@ import { applyMiddleware, compose, createStore as create, combineReducers } from
 import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-promise';
 import createLogger from 'redux-logger';
-import reducers from '../reducers';
 import issuesReducer from '../components/Issues/IssuesModule';
-import employeesReducer from '../components/Employees/EmployeesModule';
 import metricsReducer from '../components/Metrics/MetricsModule';
+import exploreReducer from '../components/Explore/ExploreModule';
 import dbReducer from '../db/DBModule';
 
 const RootReducer = (asyncReducers) => {
   return combineReducers({
     routing: routerReducer,
     issues: issuesReducer,
-    employees: employeesReducer,
     metrics: metricsReducer,
+    explore: exploreReducer,
     db: dbReducer,
     ...asyncReducers
   });

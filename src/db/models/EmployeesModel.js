@@ -1,6 +1,5 @@
 import Model from './Model';
 import { Type } from 'lovefield';
-import lf from 'lovefield';
 
 export default class EmployeesModel extends Model {
   
@@ -9,19 +8,9 @@ export default class EmployeesModel extends Model {
   }
   createSchema(builder){
     builder.createTable(this.name)
-      .addColumn('id', lf.Type.STRING)
+      .addColumn('id', Type.NUMBER)
       .addColumn('name', Type.STRING)
-      .addColumn('office', Type.STRING)
+      .addColumn('office', Type.NUMBER)
       .addPrimaryKey(['id']);
-  }
-  
-  selectAll(){
-    // let tb = this.table();
-    // return this.database()
-    //   .select(tb.id, tb.name, tb.office)
-    //   .from(tb)
-    //   .orderBy(tb.id)
-    //   .groupBy(tb.id)
-    //   .exec();
   }
 }

@@ -10,7 +10,6 @@ class Issues extends Component {
     static propTypes = {
       toggleDrawerActive: React.PropTypes.func.isRequired,
       issues: React.PropTypes.object.isRequired,
-      employees: React.PropTypes.object.isRequired,
       fetchIssues: React.PropTypes.func.isRequired
     }
     
