@@ -3,7 +3,6 @@ var path = require('path');
 var webpack = require('webpack');
 var cssnano = require('cssnano');
 var copy = require('copy-webpack-plugin');
-var WriteFilePlugin = require('write-file-webpack-plugin');
 
 var cssModulesLoader = [
   'css?sourceMap&-minimize',
@@ -16,6 +15,29 @@ var ROOT_PATH = path.resolve(__dirname);
 var SRC_PATH = path.resolve(ROOT_PATH, 'src');
 var DIST_PATH = path.resolve(ROOT_PATH, 'dist');
 var MODULE_PATH = path.resolve(ROOT_PATH, 'node_modules');
+var ENV = process.env.NODE_ENV || 'development';
+
+var plugins;
+if(ENV === 'production') {
+  plugins = [
+    new copy([
+      { from: SRC_PATH+'/index.html', to: DIST_PATH+'/index.html' },
+      { from: 'static', to:'static' }
+    ]),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    })
+  ]
+}else{
+  plugins = [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new copy([
+      { from: SRC_PATH+'/index.html', to: DIST_PATH+'/index.html' },
+      { from: 'static', to:'static' }
+    ])
+  ]
+}
 
 module.exports = {
   context: ROOT_PATH,
@@ -33,15 +55,8 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss']
   },
-  devtool: 'eval-source-map',
-  plugins: [
-    // new WriteFilePlugin({test: /\.(json|csv)$/}),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new copy([
-      { from: 'static', to:'static' }
-    ])
-  ],
+  devtool: ENV === 'development' ? 'eval-source-map' : '', 
+  plugins: plugins,
   module: {
     loaders: [
       { test: /\.css$/, loader: 'style-loader!css-loader' },
@@ -84,7 +99,7 @@ module.exports = {
       mergeIdents: false,
       reduceIdents: false,
       safe: true,
-      sourcemap: true
+      sourcemap: ENV === 'development' ? true : false
     })
   ],
   resolve: {
