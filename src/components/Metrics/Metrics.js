@@ -21,14 +21,20 @@ class Metrics extends Component {
     render() {
       const title = `${this.props.openIssues} Open Issues`;
       return (
-        <Panel>
+        <Panel scrollY={Boolean(true)}>
           <AppBar title={'Metrics'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive} />
-          <div style={{overflowY:'auto'}}>
-            <Card style={{width: '350px', margin:'10px'}}>
+          <div style={{overflowY:'auto', overflowX:'hidden', flex:'1'}}>
+            <Card className={defaultTheme.issuesCard}>
               <CardTitle title={title} className={defaultTheme.issues}/>
             </Card>
-            <IssuesChart data={this.props.monthlyIssues}/>
-            <CustomersChart data={this.props.payingCustomers}/>
+            <div className={defaultTheme.chartContainer} >
+              <div className={defaultTheme.chart} >
+                <IssuesChart data={this.props.monthlyIssues}/>
+              </div>
+              <div className={defaultTheme.chart} >
+                <CustomersChart data={this.props.payingCustomers}/>
+              </div>
+            </div>
           </div>
         </Panel>
       );

@@ -1,5 +1,4 @@
 .nav > a {
-  text-align: center;
   margin: 0;
   padding: 10px;
 }
@@ -11,4 +10,10 @@
 .nav {
   margin: 0;
   padding: 0;
+}
+
+@media (min-width: 600px) {
+  .nav > a {
+    text-align: center;
+  }
 }

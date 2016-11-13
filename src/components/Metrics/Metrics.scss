@@ -1,3 +1,17 @@
+.issuesCard {
+  width: 100%;
+}
+
 .issues{
   margin: 0 auto;
+}
+
+.chartContainer{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chart {
+  display: flex;
+  flex: 1;
 }
