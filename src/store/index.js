@@ -6,6 +6,7 @@ import createLogger from 'redux-logger';
 import reducers from '../reducers';
 import issuesReducer from '../components/Issues/IssuesModule';
 import employeesReducer from '../components/Employees/EmployeesModule';
+import metricsReducer from '../components/Metrics/MetricsModule';
 import dbReducer from '../db/DBModule';
 
 const RootReducer = (asyncReducers) => {
@@ -13,6 +14,7 @@ const RootReducer = (asyncReducers) => {
     routing: routerReducer,
     issues: issuesReducer,
     employees: employeesReducer,
+    metrics: metricsReducer,
     db: dbReducer,
     ...asyncReducers
   });

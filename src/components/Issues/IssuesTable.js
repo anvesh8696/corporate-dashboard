@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AutoSizer, Table, Column, SortDirection } from 'react-virtualized';
+import { isNumber } from 'lodash';
 
 class IssuesTable extends Component {
     static propTypes = {
@@ -39,8 +40,10 @@ class IssuesTable extends Component {
     }
     
     sortOrder = (a, b, sortBy, order) => {
+      if(isNumber(a[sortBy])){
+        return (a[sortBy] > b[sortBy] ? -1 : 1) * order;
+      }
       return a[sortBy].localeCompare(b[sortBy]) * order;
-      //return a.get(sortBy).localeCompare(b.get(sortBy)) * order;
     }
     
     createTable = (list, columns) => {
@@ -89,7 +92,7 @@ class IssuesTable extends Component {
         {'key':'employee', 'label':'employee'}
       ]);
       return (
-        <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
+        <div style={{ flex: 1, overflowY: 'visible'}}>
           {this.createTable(this.props.issues, columns)}
         </div>
       );

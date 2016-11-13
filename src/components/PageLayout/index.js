@@ -40,7 +40,7 @@ export default function (Wrapped){
               theme={theme}
               pinned={this.state.drawerPinned} permanentAt='md'
               onOverlayClick={ this.toggleDrawerActive }>
-              <Navigation type='vertical' routes={routes} />
+              <Navigation type='vertical' routes={routes} className={theme.nav} />
             </NavDrawer>
             <Wrapped
               toggleDrawerActive={this.toggleDrawerActive}

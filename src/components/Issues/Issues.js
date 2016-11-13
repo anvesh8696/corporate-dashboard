@@ -15,7 +15,6 @@ class Issues extends Component {
     }
     
     componentDidMount() {
-      console.log('ss')
       this.props.fetchIssues();
     }
 

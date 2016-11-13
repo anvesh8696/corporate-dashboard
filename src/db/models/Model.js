@@ -15,7 +15,7 @@ export default class Model {
     return this.db.database;
   }
   
-  table(){
-    return this.database().getSchema().table(this.name);
+  table(name){
+    return this.database().getSchema().table(name || this.name);
   }
 }
