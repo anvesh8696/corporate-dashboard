@@ -27,3 +27,23 @@ An application using a front-end MVC framework of your choosing. The dashboard a
 //  Install local dependencies
 npm install
 ```
+### NPM Tasks
+```node
+// Start live editing
+npm run live
+// Build dist version
+npm run build
+```
+
+## Simple Server
+
+```node
+//  Install globals
+npm install http-server -g
+//  Start server
+http-server -p 8080
+```
+
+## License
+
+Project is released under the [MIT License](http://opensource.org/licenses/MIT).
