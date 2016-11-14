@@ -33,6 +33,8 @@ npm install
 npm run live
 // Build dist version
 npm run build
+// Build dist version on Windows #fix webpack from hanging
+npm run build:windows
 ```
 
 ## Simple Server
