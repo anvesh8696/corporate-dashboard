@@ -1,0 +1,46 @@
+.card {
+  position: relative;
+}
+
+.issue {
+  margin: 10px;
+  position: absolute;
+  right: 0;
+}
+
+.issueClosed {
+  @extend .issue;
+  background-color: #40bf31;
+  color: white;
+}
+
+.issueOpen {
+  @extend .issue;
+  background-color: #de3737;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: visible;
+  position: relative;
+}
+
+.inner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.scroll {
+  padding: 10px;
+  overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+  .scroll {
+    padding: 0;
+  }
+}

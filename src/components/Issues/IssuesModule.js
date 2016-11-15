@@ -1,5 +1,4 @@
 import { createAction, handleActions } from 'redux-actions';
-import { List } from 'immutable';
 
 // ------------------------------------
 // Constants
@@ -22,10 +21,7 @@ export function fetchIssues() {
     
     model.selectAll()
       .then((data) => {
-        dispatch({
-          type: FETCH_ISSUES_SUCCESS,
-          payload: List(data)
-        });
+        dispatch(fetchIssuesSuccess(data));
       });
   };
 }
@@ -38,7 +34,7 @@ export const actions = {
 // ------------------------------------
 // Initial State
 // ------------------------------------
-const initialState = List();
+const initialState = [];
 
 // ------------------------------------
 // Reducer
