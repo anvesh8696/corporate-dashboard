@@ -14,8 +14,8 @@ class IssuesTable extends Component {
     }
     
     state = {
-      sortBy: 'customer',
-      sortDirection: SortDirection.ASC
+      sortBy: 'created',
+      sortDirection: SortDirection.DESC
     }
     
     createHeaders(list){

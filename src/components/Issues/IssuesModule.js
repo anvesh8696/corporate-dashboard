@@ -40,7 +40,10 @@ const initialState = [];
 // Reducer
 // ------------------------------------
 export const issuesReducer = handleActions({
-  [FETCH_ISSUES_SUCCESS]: (state, action) => action.payload
+  [FETCH_ISSUES_SUCCESS]: (state, action) => {
+    console.log('in the issuesReducer')
+    return action.payload
+  }
 }, initialState);
 
 export default issuesReducer;

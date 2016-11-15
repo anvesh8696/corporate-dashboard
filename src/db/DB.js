@@ -27,53 +27,63 @@ export default class DB {
     });
   }
   
-  importJSON = (url, name) => {
-    let table = this.database.getSchema().table(name);
+  loadAndInsert = (url, name) => {
     return this.loadFile(url)
-      .then((str) => {
-        let rows = JSON.parse(str);
-        if(rows && rows.length > 0) {
-          //rows.map((r) => table.createRow(r));
-          for(let i=0; i<rows.length; i++){
-            rows[i] = table.createRow(rows[i]);
-          }
-          this.database
-            .insertOrReplace()
-            .into(table)
-            .values(rows).exec();
-        }
-      });
+      .then((str) => this.insert(name, str));
   }
   
-  importCSV = (url, name) => {
+  insert = (name, str) => {
+    if(str[0] === '{' || str[0] === '['){
+      return this.insertJSON(name, str);
+    }
+    return this.insertCSV(name, str);
+  }
+  
+  insertJSON = (name, str) => {
     let table = this.database.getSchema().table(name);
-    return this.loadFile(url)
-      .then((str) => {
-        let rows = [];
-        let lines = str.split('\n');
-        // has columns and data
-        if(lines.length >= 1) {
-          let headers = lines[0].split(',');
-          for(let i = 1; i < lines.length; i++) {
-            let data = lines[i].split(',');
-            // line has data
-            if(data.length > 0){
-              let obj = {id: i - 1};
-              for(let j = 0; j < data.length; j++) {
-                 obj[headers[j].trim()] = this.nonNull(data[j].trim());
-              }
-              rows.push(table.createRow(obj));
-            }
-          }
-          if(rows.length > 0) {
-            this.database
-              .insertOrReplace()
-              .into(table)
-              .values(rows).exec();
-          }
+    let rows = JSON.parse(str);
+    if(rows) {
+      if(rows.length > 0){
+        //rows.map((r) => table.createRow(r));
+        for(let i=0; i<rows.length; i++){
+          rows[i] = table.createRow(rows[i]);
         }
-      });
-  };
+      }else{
+        rows = [table.createRow(rows)];
+      }
+      this.database
+        .insertOrReplace()
+        .into(table)
+        .values(rows).exec();
+    }
+  }
+  
+  insertCSV = (name, str) => {
+    let table = this.database.getSchema().table(name);
+    let rows = [];
+    let lines = str.split('\n');
+    // has columns and data
+    if(lines.length >= 1) {
+      let headers = lines[0].split(',');
+      for(let i = 1; i < lines.length; i++) {
+        let data = lines[i].split(',');
+        // line has data
+        if(data.length > 0){
+          let obj = {id: i - 1};
+          for(let j = 0; j < data.length; j++) {
+             obj[headers[j].trim()] = this.nonNull(data[j].trim());
+          }
+          rows.push(table.createRow(obj));
+        }
+      }
+      if(rows.length > 0) {
+        this.database
+          .insertOrReplace()
+          .into(table)
+          .values(rows).exec();
+      }
+    }
+  }
   
   nonNull(value) {
     return value ? value : '';
@@ -99,11 +109,7 @@ export default class DB {
     let p = [];
     let i;
     for(i = 0; i < m.length; i++) {
-      p.push(
-        m[i].url.indexOf('.json') != -1 ?
-          this.importJSON(m[i].url, m[i].name) :
-          this.importCSV(m[i].url, m[i].name)
-      );
+      p.push(this.loadAndInsert(m[i].url, m[i].name));
     }
     return p;
   }
