@@ -1,3 +1,13 @@
+$switch-text-color: white;
+
+.switch {
+  color: white;
+  margin-bottom: 0;
+  & > span {
+    color: white;
+  }
+}
+
 .card {
   position: relative;
 }

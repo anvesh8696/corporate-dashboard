@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { AppBar, IconButton, Panel } from 'react-toolbox';
+import React, { Component, PropTypes } from 'react';
+import { AppBar, Panel, Switch } from 'react-toolbox';
 import { themr } from 'react-css-themr';
 import defaultTheme from './Issues.scss';
 import 'react-virtualized/styles.css';
@@ -8,28 +8,42 @@ import Search from './Search';
 
 class Issues extends Component {
     static propTypes = {
-      toggleDrawerActive: React.PropTypes.func.isRequired,
-      issues: React.PropTypes.array.isRequired,
-      fetchIssues: React.PropTypes.func.isRequired
+      toggleDrawerActive: PropTypes.func.isRequired,
+      issues: PropTypes.array.isRequired,
+      fetchIssues: PropTypes.func.isRequired,
+      togglePush: PropTypes.func.isRequired
     }
     
     state = {
-      search: ''
+      search: '',
+      push: false
     }
     
     componentDidMount() {
       this.props.fetchIssues();
     }
     
-    onSearch = (search) => {
-      this.setState({search: search});
+    handleSearch = (search) => {
+      this.setState({...this.state, search: search});
+    }
+    
+    handleToggle = (checked) => {
+      this.setState({...this.state, push: checked});
+      this.props.togglePush(checked);
     }
 
     render() {
       return (
         <Panel>
-          <AppBar title={'Issues'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive} />
-          <Search onSearch={this.onSearch} />
+          <AppBar title={'Issues'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive} >
+            <Switch
+              label="Push"
+              className={defaultTheme.switch}
+              checked={this.state.push}
+              onChange={this.handleToggle}
+            />
+          </AppBar>
+          <Search onSearch={this.handleSearch} />
           <IssuesTable issues={this.props.issues} search={this.state.search} />
         </Panel>
       );

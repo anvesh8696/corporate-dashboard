@@ -3,9 +3,11 @@ import { random } from 'lodash';
 export default class DBSocket {
   constructor(){
     this.actions = {};
+    this.enabled = false;
     
     // Simulate events coming from a socket
     this.eventIndex = 999;
+    this.timer = 0;
     this.run();
   }
   
@@ -17,7 +19,10 @@ export default class DBSocket {
         data: this.createDummyIssue()
       });
     }
-    setTimeout(this.run, 1000 * random(1,3));
+    if(this.enabled){
+      clearTimeout(this.timer);
+      this.timer = setTimeout(this.run, 1000 * random(1,3));
+    }
   }
   
   createDummyIssue = () => {
@@ -38,5 +43,18 @@ export default class DBSocket {
   
   on(action, callback){
     this.actions[action] = callback;
+  }
+  
+  enablePush(){
+    let e = this.enabled;
+    this.enabled = true;
+    if(e == false){
+      this.run();
+    }
+  }
+  
+  disablePush(){
+    clearTimeout(this.timer);
+    this.enabled = false;
   }
 }

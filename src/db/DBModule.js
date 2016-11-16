@@ -6,7 +6,7 @@ import EmployeesModel from './models/EmployeesModel';
 import CustomersModel from './models/CustomersModel';
 import SalesModel from './models/SalesModel';
 import OfficesModel from './models/OfficesModel';
-import { fetchIssues } from '../components/Issues/IssuesModule'
+import { fetchIssues } from '../components/Issues/IssuesModule';
 import { dispatch } from '../App';
 
 // ------------------------------------
@@ -23,7 +23,7 @@ const initialState = new DB('corporate', [
 // ------------------------------------
 // Fake SocketIO for push updates
 // ------------------------------------
-let socket = new DBSocket();
+const socket = new DBSocket();
 socket.on('event', function (type, response){
   // New data found on server
   if(type === 'insert'){
@@ -35,6 +35,19 @@ socket.on('event', function (type, response){
     initialState.importTableData();
   } 
 });
+
+// ------------------------------------
+// ASYNC Actions
+// ------------------------------------
+export function togglePush(enabled) {
+  return function (dispatch, getState) {
+    if(enabled){
+      socket.enablePush();
+    } else {
+      socket.disablePush();
+    }
+  };
+}
 
 
 // ------------------------------------

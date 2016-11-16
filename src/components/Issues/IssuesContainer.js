@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import Issues from './Issues'
 import { fetchIssues } from './IssuesModule'
+import { togglePush } from '../../db/DBModule'
 
 const mapStateToProps = (state) => {
   return {
@@ -10,11 +11,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchIssues: (id) => {
-      dispatch(fetchIssues());
-    }
-  }
-}
+    fetchIssues: () => dispatch(fetchIssues()),
+    togglePush: (enabled) => dispatch(togglePush(enabled))
+  };
+};
 
 export default connect(
   mapStateToProps,

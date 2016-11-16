@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { cloneDeep } from 'lodash';
 
 // ------------------------------------
 // Constants
@@ -21,7 +22,11 @@ export function fetchIssues() {
     
     model.selectAll()
       .then((data) => {
-        dispatch(fetchIssuesSuccess(data));
+        let list = cloneDeep(data);
+        for(let i =0; i<data.length; i++){
+          list[i].key = i;
+        }
+        dispatch(fetchIssuesSuccess(list));
       });
   };
 }
@@ -41,7 +46,6 @@ const initialState = [];
 // ------------------------------------
 export const issuesReducer = handleActions({
   [FETCH_ISSUES_SUCCESS]: (state, action) => {
-    console.log('in the issuesReducer')
     return action.payload
   }
 }, initialState);

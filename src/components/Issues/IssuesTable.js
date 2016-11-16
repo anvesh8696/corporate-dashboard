@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { AutoSizer, Table, Column, SortDirection } from 'react-virtualized';
-import { isNumber, filter } from 'lodash';
+import { isNumber, filter, orderBy } from 'lodash';
 import { Card, CardText, CardTitle } from 'react-toolbox/lib/card';
 import Chip from 'react-toolbox/lib/chip';
 import ContainerDimensions from 'react-container-dimensions';
@@ -15,7 +15,8 @@ class IssuesTable extends Component {
     
     state = {
       sortBy: 'created',
-      sortDirection: SortDirection.DESC
+      sortDirection: SortDirection.DESC,
+      filteredIssues: []
     }
     
     createHeaders(list){
@@ -45,23 +46,14 @@ class IssuesTable extends Component {
       return list[index % list.length];
     }
     
-    sortOrder = (a, b, sortBy, order) => {
-      if(isNumber(a[sortBy])){
-        return (a[sortBy] > b[sortBy] ? -1 : 1) * order;
-      }
-      return a[sortBy].localeCompare(b[sortBy]) * order;
-    }
-    
     createTable = (list, columns) => {
       const {
         sortBy,
         sortDirection
       } = this.state;
-      const order = sortDirection === SortDirection.DESC ? -1 : 1;
-      let sortedList = list
-        .sort((a, b) => this.sortOrder(a, b, sortBy, order));
+      const order = sortDirection.toLowerCase();
+      let sortedList = orderBy(list, [sortBy], [order]);
       const rowGetter = ({ index }) => this.getRowData(sortedList, index);
-      
       return React.createElement(
         AutoSizer,
         null,
@@ -70,8 +62,8 @@ class IssuesTable extends Component {
             Table,
             {
               sort: this.sortTable,
-              sortBy: this.state.sortBy,
-              sortDirection: this.state.sortDirection,
+              sortBy: sortBy,
+              sortDirection: sortDirection,
               height: params.height,
               overscanRowCount: 0,
               rowGetter: rowGetter,
@@ -118,20 +110,30 @@ class IssuesTable extends Component {
       );
     }
     
+    keyInIssue(e, s){
+      return e.created.indexOf(s) != -1 ||
+        e.customer.indexOf(s) != -1 ||
+        e.email.indexOf(s) != -1 ||
+        e.description.indexOf(s) != -1 ||
+        e.status.indexOf(s) != -1 ||
+        e.closed.indexOf(s) != -1 ||
+        e.employee.indexOf(s) != -1;
+    }
+    
     filterIssues = (issues) => {
-      let s = this.props.search;
+      let keys = this.props.search.trim().split(' ');
       // no filter, eject early
-      if(s === ''){
+      if(keys[0] === ''){
         return issues;
       }
       return filter(issues, (e) => {
-        return e.created.indexOf(s) != -1 ||
-          e.customer.indexOf(s) != -1 ||
-          e.email.indexOf(s) != -1 ||
-          e.description.indexOf(s) != -1 ||
-          e.status.indexOf(s) != -1 ||
-          e.closed.indexOf(s) != -1 ||
-          e.employee.indexOf(s) != -1;
+        let i = 0;
+        for(i=0; i<keys.length; i++){
+          if(!this.keyInIssue(e, keys[i])){
+            return false;
+          }
+        }
+        return true;
       });
     }
 
@@ -145,23 +147,18 @@ class IssuesTable extends Component {
         {'key':'closed', 'label':'closed'},
         {'key':'employee', 'label':'employee'}
       ]);
-      let filtered = this.filterIssues(this.props.issues);
+      const filtered = this.filterIssues(this.props.issues);
       return (
         <div className={theme.container}>
           {
-          <ContainerDimensions>
-            {
-              ({ width }) =>
-                width >= 800 ?
-                  this.createTable(filtered, columns) :
-                  this.createCards(filtered)
-            }
-          </ContainerDimensions>
-          /*
-            this.props.containerWidth > 500 ?
-              this.createTable(this.props.issues, columns) :
-              this.createCards(this.props.issues)
-              */
+            <ContainerDimensions>
+              {
+                ({ width }) =>
+                  width >= 800 ?
+                    this.createTable(filtered, columns) :
+                    this.createCards(filtered)
+              }
+            </ContainerDimensions>
           }
         </div>
       );
