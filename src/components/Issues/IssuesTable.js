@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { AutoSizer, Table, Column, SortDirection } from 'react-virtualized';
-import { isNumber, filter, orderBy } from 'lodash';
+import { filter, orderBy } from 'lodash';
 import { Card, CardText, CardTitle } from 'react-toolbox/lib/card';
 import Chip from 'react-toolbox/lib/chip';
 import ContainerDimensions from 'react-container-dimensions';

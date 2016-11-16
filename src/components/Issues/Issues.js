@@ -23,6 +23,10 @@ class Issues extends Component {
       this.props.fetchIssues();
     }
     
+    componentWillUnmount() {
+      this.handleToggle(false);
+    }
+    
     handleSearch = (search) => {
       this.setState({...this.state, search: search});
     }

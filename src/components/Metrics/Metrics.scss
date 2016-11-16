@@ -1,3 +1,14 @@
+.page{
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+
 .issuesCard {
   width: 100%;
 }
@@ -7,6 +18,8 @@
 }
 
 .chartContainer{
+  flex: 1;
+  flex-direction: column;
   display: flex;
   flex-wrap: wrap;
 }

@@ -8,7 +8,7 @@ export default class IssuesChart extends Component {
 
     render() {
       return (
-        <ResponsiveContainer height={600} >
+        <ResponsiveContainer >
           <ComposedChart data={this.props.data}
               margin={{top: 20, right: 20, bottom: 20, left: 20}} ref={'chart'}>
             <XAxis dataKey="month" />

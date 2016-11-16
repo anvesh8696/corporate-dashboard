@@ -23,7 +23,7 @@ class Metrics extends Component {
       return (
         <Panel scrollY={Boolean(true)}>
           <AppBar title={'Metrics'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive} />
-          <div style={{overflowY:'auto', overflowX:'hidden', flex:'1'}}>
+          <div className={defaultTheme.page}>
             <Card className={defaultTheme.issuesCard}>
               <CardTitle title={title} className={defaultTheme.issues}/>
             </Card>
