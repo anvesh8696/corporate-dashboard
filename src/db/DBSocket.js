@@ -15,13 +15,20 @@ export default class DBSocket {
   run = () => {
     let cb = this.actions['event'];
     if(cb){
-      
-      this.db.getModel('issues').count()
+      let tableName = random(0, 1) ? 'issues' : 'sales';
+      this.db.getModel(tableName).count()
       .then((c) => {
-        cb('insert', {
-          model: 'issues',
-          data: this.createDummyIssue(c + 1)
-        });
+        if(tableName === 'issues'){
+          cb('insert', {
+            model: tableName,
+            data: this.createDummyIssue(c + 1)
+          });
+        } else {
+          cb('insert', {
+            model: tableName,
+            data: this.createDummySale(c + 1)
+          });
+        }
       });
     }
     if(this.enabled){
@@ -31,7 +38,6 @@ export default class DBSocket {
   }
   
   createDummyIssue = (index) => {
-    //this.eventIndex += 1;
     let open = random(0, 1) == 0 ? 'open' : 'closed';
     return JSON.stringify(
       {
@@ -42,6 +48,16 @@ export default class DBSocket {
         closed : '',
         status : open,
         description : 'MSG FROM SOCKET'
+      }
+    );
+  }
+  
+  createDummySale = (index) => {
+    return JSON.stringify(
+      {
+        id : index,
+        customer : random(0, 90),
+        created : '2016-11-13'
       }
     );
   }
