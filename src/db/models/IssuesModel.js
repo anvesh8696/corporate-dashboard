@@ -1,6 +1,5 @@
 import Model from './Model';
 import { Type, op, fn } from 'lovefield';
-import { fill, each } from 'lodash';
 
 export default class IssuesModel extends Model {
   
@@ -69,6 +68,16 @@ export default class IssuesModel extends Model {
       .where(issues.status.eq('open'))
       .exec().then((data) =>{
         return data[0].count;
+      });
+  }
+  
+  count(){
+    let issues = this.table();
+    return this.database().select(fn.count(issues.id))
+      .from(issues)
+      .exec()
+      .then(function (results) {
+        return results[0]['COUNT(id)'];
       });
   }
 }

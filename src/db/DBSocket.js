@@ -1,12 +1,13 @@
 import { random } from 'lodash';
 
 export default class DBSocket {
-  constructor(){
+  constructor(db){
     this.actions = {};
     this.enabled = false;
+    this.db = db;
     
     // Simulate events coming from a socket
-    this.eventIndex = 999;
+    //this.eventIndex = -1;
     this.timer = 0;
     this.run();
   }
@@ -14,9 +15,13 @@ export default class DBSocket {
   run = () => {
     let cb = this.actions['event'];
     if(cb){
-      cb('insert', {
-        model: 'issues',
-        data: this.createDummyIssue()
+      
+      this.db.getModel('issues').count()
+      .then((c) => {
+        cb('insert', {
+          model: 'issues',
+          data: this.createDummyIssue(c + 1)
+        });
       });
     }
     if(this.enabled){
@@ -25,12 +30,12 @@ export default class DBSocket {
     }
   }
   
-  createDummyIssue = () => {
-    this.eventIndex++;
+  createDummyIssue = (index) => {
+    //this.eventIndex += 1;
     let open = random(0, 1) == 0 ? 'open' : 'closed';
     return JSON.stringify(
       {
-        id : this.eventIndex,
+        id : index,
         customer : random(0, 90),
         employee : random(0, 9),
         created : '2016-11-13',

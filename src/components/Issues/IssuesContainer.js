@@ -5,7 +5,8 @@ import { togglePush } from '../../db/DBModule'
 
 const mapStateToProps = (state) => {
   return {
-    'issues': state.issues
+    issues: state.issues.list,
+    push: state.db.socket
   };
 };
 

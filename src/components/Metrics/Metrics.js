@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { AppBar, Card, CardTitle, Panel } from 'react-toolbox';
+import { AppBar, Card, CardTitle, Panel, Switch } from 'react-toolbox';
 import { themr } from 'react-css-themr';
 import defaultTheme from './Metrics.scss';
 import IssuesChart from './IssuesChart';
@@ -11,7 +11,9 @@ class Metrics extends Component {
       fetchData: PropTypes.func.isRequired,
       monthlyIssues: PropTypes.array.isRequired,
       openIssues: PropTypes.number.isRequired,
-      payingCustomers: PropTypes.array.isRequired
+      payingCustomers: PropTypes.array.isRequired,
+      togglePush: PropTypes.func.isRequired,
+      push: PropTypes.bool.isRequired
     }
     
     componentDidMount() {
@@ -22,7 +24,14 @@ class Metrics extends Component {
       const title = `${this.props.openIssues} Open Issues`;
       return (
         <Panel scrollY={Boolean(true)}>
-          <AppBar title={'Metrics'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive} />
+          <AppBar title={'Metrics'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive}>
+            <Switch
+              label="Push"
+              className={defaultTheme.switch}
+              checked={this.props.push}
+              onChange={this.props.togglePush}
+            />
+          </AppBar>
           <div className={defaultTheme.page}>
             <Card className={defaultTheme.issuesCard}>
               <CardTitle title={title} className={defaultTheme.issues}/>

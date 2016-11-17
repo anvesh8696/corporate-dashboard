@@ -4,6 +4,7 @@ import { themr } from 'react-css-themr';
 import defaultTheme from './Explore.scss';
 import GoogleMap from 'google-map-react';
 import Marker from './Marker';
+import MapStyle from './MapStyle';
 
 class Explore extends Component {
     
@@ -36,7 +37,11 @@ class Explore extends Component {
       return (
         <Panel>
           <AppBar title={'Explore'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive} />
-          <GoogleMap onChange={this.onChange} center={this.state.center} zoom={this.state.zoom}>
+          <GoogleMap
+            options={{ styles: MapStyle }}
+            onChange={this.onChange}
+            center={this.state.center}
+            zoom={this.state.zoom}>
             {markers}
           </GoogleMap>
         </Panel>

@@ -51,11 +51,12 @@ export default class DB {
       }else{
         rows = [table.createRow(rows)];
       }
-      this.database
+      return this.database
         .insertOrReplace()
         .into(table)
         .values(rows).exec();
     }
+    return new Promise();
   }
   
   insertCSV = (name, str) => {
@@ -77,12 +78,13 @@ export default class DB {
         }
       }
       if(rows.length > 0) {
-        this.database
+        return this.database
           .insertOrReplace()
           .into(table)
           .values(rows).exec();
       }
     }
+    return new Promise();
   }
   
   nonNull(value) {

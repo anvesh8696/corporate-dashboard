@@ -1,32 +1,28 @@
 import { createAction, handleActions } from 'redux-actions';
-import { cloneDeep } from 'lodash';
+import { dispatch } from '../../App';
+import { TABLE_DATA_UPDATE } from '../../db/DBModule';
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const FETCH_ISSUES = 'FETCH_ISSUES'
-export const FETCH_ISSUES_SUCCESS = 'FETCH_ISSUES_SUCCESS'
+export const FETCH_ISSUES = 'FETCH_ISSUES';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const fetchIssuesSuccess = createAction(FETCH_ISSUES_SUCCESS);
+export const fetchIssuesSuccess = createAction(`${FETCH_ISSUES}_SUCCESS`);
 
 // ------------------------------------
 // ASYNC Actions
 // ------------------------------------
 export function fetchIssues() {
   return function (dispatch, getState) {
-    const db = getState()['db'];
+    const db = getState()['db'].db;
     let model = db.getModel('issues');
     
     model.selectAll()
       .then((data) => {
-        let list = cloneDeep(data);
-        for(let i =0; i<data.length; i++){
-          list[i].key = i;
-        }
-        dispatch(fetchIssuesSuccess(list));
+        dispatch(fetchIssuesSuccess(data));
       });
   };
 }
@@ -34,20 +30,30 @@ export function fetchIssues() {
 
 export const actions = {
   fetchIssues
-}
+};
 
 // ------------------------------------
 // Initial State
 // ------------------------------------
-const initialState = [];
+const initialState = {
+  list: []
+};
+
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export const issuesReducer = handleActions({
-  [FETCH_ISSUES_SUCCESS]: (state, action) => {
-    return action.payload
+const handleTableDataUpdate = (state, action) => {
+  let p = action.payload;
+  if(p.pathname === '/issues' && p.model === 'issues'){
+    dispatch(fetchIssues());
   }
+  return state;
+};
+
+export const issuesReducer = handleActions({
+  [`${FETCH_ISSUES}_SUCCESS`]: (state, action) => ({...state, list: action.payload}),
+  [TABLE_DATA_UPDATE]: handleTableDataUpdate
 }, initialState);
 
 export default issuesReducer;

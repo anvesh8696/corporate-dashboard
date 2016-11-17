@@ -11,29 +11,20 @@ class Issues extends Component {
       toggleDrawerActive: PropTypes.func.isRequired,
       issues: PropTypes.array.isRequired,
       fetchIssues: PropTypes.func.isRequired,
-      togglePush: PropTypes.func.isRequired
+      togglePush: PropTypes.func.isRequired,
+      push: PropTypes.bool.isRequired
     }
     
     state = {
-      search: '',
-      push: false
+      search: ''
     }
     
     componentDidMount() {
       this.props.fetchIssues();
     }
     
-    componentWillUnmount() {
-      this.handleToggle(false);
-    }
-    
     handleSearch = (search) => {
       this.setState({...this.state, search: search});
-    }
-    
-    handleToggle = (checked) => {
-      this.setState({...this.state, push: checked});
-      this.props.togglePush(checked);
     }
 
     render() {
@@ -43,8 +34,8 @@ class Issues extends Component {
             <Switch
               label="Push"
               className={defaultTheme.switch}
-              checked={this.state.push}
-              onChange={this.handleToggle}
+              checked={this.props.push}
+              onChange={this.props.togglePush}
             />
           </AppBar>
           <Search onSearch={this.handleSearch} />

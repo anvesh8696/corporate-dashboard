@@ -35,7 +35,7 @@ export default class Routes extends Component {
   
   componentDidMount(){
     const getState = this.props.store.getState;
-    let db = getState()['db'];
+    let db = getState()['db'].db;
     db.connect().then(() => {
       this.setState({
         ready: true
