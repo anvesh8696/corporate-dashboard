@@ -6,11 +6,11 @@
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --progress --colors",
     "live": "npm run start",
-    "build": "NODE_ENV=production webpack --config webpack.config.js --progress --profile --colors",
-    "build:windows": "NODE_ENV=production & webpack --config webpack.config.js --progress --profile --colors",
+    "build": "NODE_ENV=production & webpack --config webpack.config.js --progress --profile --colors",
     "lint": "./node_modules/.bin/eslint .",
     "test": "karma start --single-run --no-auto-watch karma.config.js",
-    "test:watch": "karma start --auto-watch --no-single-run karma.config.js"
+    "test:watch": "karma start --auto-watch --no-single-run karma.config.js",
+    "deploy:github": "git push origin `git subtree split --prefix dist master`:gh-pages --force"
   },
   "repository": {
     "type": "git",
