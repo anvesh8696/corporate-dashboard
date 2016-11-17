@@ -15,7 +15,9 @@ export default class DBSocket {
   run = () => {
     let cb = this.actions['event'];
     if(cb){
-      let tableName = random(0, 1) ? 'issues' : 'sales';
+      let tables = ['issues', 'sales', 'employees'];
+      let tableName = tables[random(0, 2)];
+      
       this.db.getModel(tableName).count()
       .then((c) => {
         if(tableName === 'issues'){
@@ -23,10 +25,15 @@ export default class DBSocket {
             model: tableName,
             data: this.createDummyIssue(c + 1)
           });
-        } else {
+        } else if(tableName === 'sales'){
           cb('insert', {
             model: tableName,
             data: this.createDummySale(c + 1)
+          });
+        } else {
+          cb('insert', {
+            model: tableName,
+            data: this.createDummyEmployee(c + 1)
           });
         }
       });
@@ -58,6 +65,16 @@ export default class DBSocket {
         id : index,
         customer : random(0, 90),
         created : '2016-11-13'
+      }
+    );
+  }
+  
+  createDummyEmployee = (index) => {
+    return JSON.stringify(
+      {
+        id : index,
+        name: 'Fake Employee',
+        office : random(0, 2)
       }
     );
   }

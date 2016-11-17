@@ -1,4 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
+import { dispatch } from '../../App';
+import { TABLE_DATA_UPDATE } from '../../db/DBModule';
 
 // ------------------------------------
 // Constants
@@ -35,11 +37,22 @@ const initialState = {
   offices: []
 };
 
+const handleTableDataUpdate = (state, action) => {
+  let p = action.payload;
+  if(p.pathname === '/'){
+    if(p.model === 'employees'){
+      dispatch(fetchOffices());
+    }
+  }
+  return state;
+};
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export const exploreReducer = handleActions({
-  [`${FETCH_OFFICES}_SUCCESS`]: (state, action) => ({...state, offices: action.payload})
+  [`${FETCH_OFFICES}_SUCCESS`]: (state, action) => ({...state, offices: action.payload}),
+  [TABLE_DATA_UPDATE]: handleTableDataUpdate
 }, initialState);
 
 export default exploreReducer;

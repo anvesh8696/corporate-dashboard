@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { AppBar, Panel } from 'react-toolbox';
+import { AppBar, Panel, Switch } from 'react-toolbox';
 import { themr } from 'react-css-themr';
 import defaultTheme from './Explore.scss';
 import GoogleMap from 'google-map-react';
@@ -8,16 +8,18 @@ import MapStyle from './MapStyle';
 
 class Explore extends Component {
     
+    static propTypes = {
+      toggleDrawerActive: PropTypes.func.isRequired,
+      offices: PropTypes.array.isRequired,
+      fetchOffices: PropTypes.func.isRequired,
+      togglePush: PropTypes.func.isRequired,
+      push: PropTypes.bool.isRequired
+    }
+    
     state = {
       center: {lat: 39.8282, lng: -98.5795},
       zoom: 4
     };
-    
-    static propTypes = {
-      toggleDrawerActive: PropTypes.func.isRequired,
-      offices: PropTypes.array.isRequired,
-      fetchOffices: PropTypes.func.isRequired
-    }
     
     componentDidMount() {
       this.props.fetchOffices();
@@ -36,7 +38,14 @@ class Explore extends Component {
       });
       return (
         <Panel>
-          <AppBar title={'Explore'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive} />
+          <AppBar title={'Explore'} leftIcon={'menu'} onLeftIconClick={this.props.toggleDrawerActive}>
+            <Switch
+              label="Push"
+              className={defaultTheme.switch}
+              checked={this.props.push}
+              onChange={this.props.togglePush}
+            />
+          </AppBar>
           <GoogleMap
             options={{ styles: MapStyle }}
             onChange={this.onChange}

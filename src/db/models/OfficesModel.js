@@ -29,27 +29,4 @@ export default class OfficesModel extends Model {
         return e;
       });
   }
-  
-  // selectAll(){
-  //   let tb = this.table();
-  //   let employees = this.table('employees');
-  //   return this.database()
-  //     .select(tb.id, tb.name, fn.count(employees.id).as('count'))
-  //     .from(tb, employees)
-  //     .where(tb.id.eq(employees.office))
-  //     .groupBy(tb.id)
-  //     .exec();
-  // }
-  
-  // selectAll(){
-  //   let tb = this.table();
-  //   let employees = this.table('employees');
-  //   return this.database()
-  //     .select(tb.id, tb.name, fn.count(employees.id).as('count'))
-  //     .from(tb, employees)
-  //     .where(tb.id.eq(employees.office))
-  //     .orderBy(tb.id)
-  //     .groupBy(tb.id)
-  //     .exec();
-  // }
 }
