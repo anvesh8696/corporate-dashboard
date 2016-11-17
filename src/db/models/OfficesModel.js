@@ -24,9 +24,6 @@ export default class OfficesModel extends Model {
       .from(tb, employees)
       .where(tb.id.eq(employees.office))
       .groupBy(tb.id)
-      .exec().then(function (e){
-        console.log(e);
-        return e;
-      });
+      .exec();
   }
 }

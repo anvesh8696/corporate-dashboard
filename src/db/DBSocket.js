@@ -20,22 +20,15 @@ export default class DBSocket {
       
       this.db.getModel(tableName).count()
       .then((c) => {
-        if(tableName === 'issues'){
-          cb('insert', {
-            model: tableName,
-            data: this.createDummyIssue(c + 1)
-          });
-        } else if(tableName === 'sales'){
-          cb('insert', {
-            model: tableName,
-            data: this.createDummySale(c + 1)
-          });
-        } else {
-          cb('insert', {
-            model: tableName,
-            data: this.createDummyEmployee(c + 1)
-          });
-        }
+        cb('insert', {
+          model: tableName,
+          data:
+            tableName === 'issues' ?
+              this.createDummyIssue(c + 1) :
+            tableName === 'sales' ?
+              this.createDummySale(c + 1) :
+              this.createDummyEmployee(c + 1)
+        });
       });
     }
     if(this.enabled){
