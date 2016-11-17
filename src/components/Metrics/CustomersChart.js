@@ -16,7 +16,7 @@ export default class CustomersChart extends Component {
             <Tooltip/>
             <Legend/>
             <CartesianGrid stroke='#f5f5f5'/>
-            <Line type='monotone' dataKey='count' name='Paying Customers' stroke='#ff7300'/>
+            <Line type='monotone' dataKey='count' name='Paying Customers' stroke='#ff7300' isAnimationActive={false}/>
           </ComposedChart>
         </ResponsiveContainer>
       );

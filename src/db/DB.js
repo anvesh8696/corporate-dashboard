@@ -56,7 +56,7 @@ export default class DB {
         .into(table)
         .values(rows).exec();
     }
-    return new Promise();
+    return Promise.resolve();
   }
   
   insertCSV = (name, str) => {
@@ -84,7 +84,7 @@ export default class DB {
           .values(rows).exec();
       }
     }
-    return new Promise();
+    return Promise.resolve();
   }
   
   nonNull(value) {

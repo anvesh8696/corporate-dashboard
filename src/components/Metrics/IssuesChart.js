@@ -16,7 +16,7 @@ export default class IssuesChart extends Component {
             <Tooltip/>
             <Legend />
             <CartesianGrid stroke='#f5f5f5'/>
-            <Bar dataKey='count' name='Reported Issues' barSize={20} fill='#ff7777'/>
+            <Bar dataKey='count' name='Reported Issues' barSize={20} fill='#ff7777' isAnimationActive={false}/>
           </ComposedChart>
         </ResponsiveContainer>
       );

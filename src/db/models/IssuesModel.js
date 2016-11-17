@@ -70,14 +70,4 @@ export default class IssuesModel extends Model {
         return data[0].count;
       });
   }
-  
-  count(){
-    let issues = this.table();
-    return this.database().select(fn.count(issues.id))
-      .from(issues)
-      .exec()
-      .then(function (results) {
-        return results[0]['COUNT(id)'];
-      });
-  }
 }
