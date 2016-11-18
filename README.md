@@ -1,6 +1,7 @@
 # corporate-dashboard
 An application using a front-end MVC framework of your choosing. The dashboard application must contain a header (with the currently selected dashboard’s name); a menu, allowing the user to navigate between dashboards; and the primary dashboard display area. You should find, or create, your own data files in CSV and JSON formats to provide data to the dashboards.
 
+[example]: https://jdbence.github.io/corporate-dashboard/index.html
 [get-zip]: https://github.com/jdbence/corporate-dashboard/archive/master.zip
 [get-tgz]: https://github.com/jdbence/corporate-dashboard/archive/master.tar.gz
 [clone-http]: https://github.com/jdbence/corporate-dashboard.git
@@ -11,6 +12,8 @@ An application using a front-end MVC framework of your choosing. The dashboard a
 [react-toolbox]: https://github.com/react-toolbox/react-toolbox
 [webpack]: https://github.com/webpack/webpack
 [babel]: https://github.com/babel/babel
+
+[Live Example][example]
 
 ## Includes
 [React][react], [React-Toolbox][react-toolbox], [Webpack][webpack], [Babel][babel]
