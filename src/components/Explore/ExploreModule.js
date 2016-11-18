@@ -39,7 +39,7 @@ const initialState = {
 
 const handleTableDataUpdate = (state, action) => {
   let p = action.payload;
-  if(p.pathname === '/'){
+  if(p.pathname === ''){
     if(p.model === 'employees'){
       dispatch(fetchOffices());
     }

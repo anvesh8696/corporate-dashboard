@@ -30,9 +30,9 @@ export default function (Wrapped){
         const { pathname } = this.props.location;
         const { theme } = this.props;
         const routes = [
-          { href:'/#/', label: 'Explore', icon: 'room', active:(pathname == '/')},
-          { href:'/#/metrics', label: 'Metrics', icon: 'access_alarm', active:(pathname == '/metrics')},
-          { href:'/#/issues', label: 'Issues', icon: 'room', active:(pathname == '/issues')}
+          { href:'#/', label: 'Explore', icon: 'room', active:(pathname == '/')},
+          { href:'#/metrics', label: 'Metrics', icon: 'access_alarm', active:(pathname == '/metrics')},
+          { href:'#/issues', label: 'Issues', icon: 'room', active:(pathname == '/issues')}
         ];
         return (
           <Layout>

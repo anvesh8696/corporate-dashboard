@@ -45,7 +45,7 @@ const initialState = {
 // ------------------------------------
 const handleTableDataUpdate = (state, action) => {
   let p = action.payload;
-  if(p.pathname === '/issues' && p.model === 'issues'){
+  if(p.pathname.indexOf('issues') != -1 && p.model === 'issues'){
     dispatch(fetchIssues());
   }
   return state;

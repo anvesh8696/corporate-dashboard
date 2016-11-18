@@ -67,7 +67,7 @@ const initialState = {
 
 const handleTableDataUpdate = (state, action) => {
   let p = action.payload;
-  if(p.pathname === '/metrics'){
+  if(p.pathname.indexOf('metrics') != -1){
     if(p.model === 'issues'){
       dispatch(fetchMonthlyIssues());
       dispatch(fetchTotalOpenIssues());
