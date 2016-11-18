@@ -4,7 +4,7 @@ import { Type, op, fn } from 'lovefield';
 export default class IssuesModel extends Model {
   
   constructor(db){
-    super(db, 'issues', '/static/corporate/issues.json');
+    super(db, 'issues', 'static/corporate/issues.json');
   }
   createSchema(builder){
     builder.createTable(this.name)

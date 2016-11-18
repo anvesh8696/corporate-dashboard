@@ -4,7 +4,7 @@ import { Type, fn } from 'lovefield';
 export default class OfficesModel extends Model {
   
   constructor(db){
-    super(db, 'offices', '/static/corporate/offices.csv');
+    super(db, 'offices', 'static/corporate/offices.csv');
   }
   createSchema(builder){
     builder.createTable(this.name)

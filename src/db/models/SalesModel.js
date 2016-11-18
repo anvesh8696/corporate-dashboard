@@ -5,7 +5,7 @@ import { fill, each } from 'lodash';
 export default class SalesModel extends Model {
   
   constructor(db){
-    super(db, 'sales', '/static/corporate/sales.json');
+    super(db, 'sales', 'static/corporate/sales.json');
   }
   createSchema(builder){
     builder.createTable(this.name)

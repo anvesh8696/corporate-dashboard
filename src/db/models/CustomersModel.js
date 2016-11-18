@@ -4,7 +4,7 @@ import { Type } from 'lovefield';
 export default class CustomersModel extends Model {
   
   constructor(db){
-    super(db, 'customers', '/static/corporate/customers.json');
+    super(db, 'customers', 'static/corporate/customers.json');
   }
   createSchema(builder){
     builder.createTable(this.name)
